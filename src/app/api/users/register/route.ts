@@ -1,5 +1,7 @@
 import { redis } from "@/db/redis/redis"
 import { Response } from "@/lib/api/Response"
+import { resend } from "@/lib/notification/resend"
+import { VerificationEmailTemplate } from "@/lib/verificationEmailTemplate"
 import { UserService } from "@/service/user/user.service"
 import type { NextRequest } from "next/server"
 import crypto, { randomBytes } from "node:crypto"
@@ -37,5 +39,12 @@ export async function POST(request: NextRequest) {
     const params = url.searchParams
     params.set("token", verifyEmailToken)
 
-    return Response(url, 200)
+    await resend.emails.send({
+        from: "onboarding@resend.dev",
+        to: email,
+        subject: "Email Verification Link",
+        html: VerificationEmailTemplate(url.href)
+    })
+
+    return Response("Verify email link sended to your email", 200)
 }
