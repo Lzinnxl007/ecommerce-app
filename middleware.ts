@@ -12,5 +12,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config: MiddlewareConfig = {
-    matcher: ["/api/users/register"]
+    matcher: ["api/auth/session"]
 }
