@@ -15,9 +15,10 @@ export async function POST(request: NextRequest) {
         return Response("User data not provided", 404)
     }
 
-    const findedUser = await UserService.GetUser(email)
+    const findedUsers = await UserService.GetUsers(email)
+    const [ first ] = findedUsers
 
-    if(findedUser) {
+    if(first) {
         return Response("User already exist!", 401)
     }
 

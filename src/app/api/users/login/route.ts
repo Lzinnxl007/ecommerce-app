@@ -16,13 +16,15 @@ export async function POST(request: NextRequest) {
     return Response("User data not provided!", 401);
   }
 
-  const findedUser = (await UserService.GetUser(email)) as User;
+  const findedUsers = (await UserService.GetUsers(email));
 
-  if (!findedUser) {
+  const [ first ] = findedUsers
+
+  if (!first) {
     return Response("User not finded!", 400);
   }
 
-  if (findedUser.status !== "ACTIVE") {
+  if (first.status !== "ACTIVE") {
     return Response("User is not active!", 401);
   }
 
@@ -30,16 +32,17 @@ export async function POST(request: NextRequest) {
   hash.update(password);
   const hashedPassword = hash.digest("hex");
 
-  if (hashedPassword !== findedUser.password) {
+  if (hashedPassword !== first.password) {
     return Response("User credentials are invalid!", 401);
   }
 
   const token = jwt.sign(
     {
-      id: findedUser.id,
-      name: findedUser.name,
-      email: findedUser.email,
-      status: findedUser.status,
+      id: first.id,
+      name: first.name,
+      email: first.email,
+      status: first.status,
+      role: first.role
     },
     process.env.JWT_SECRET!,
     { expiresIn: "7d" },
@@ -51,6 +54,9 @@ export async function POST(request: NextRequest) {
     name: "user_token",
     value: token,
     httpOnly: true,
-    secure: true,
+    secure: false,
+    sameSite: "lax"
   });
+
+  return Response("User login successfully", 200)
 }
