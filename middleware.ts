@@ -3,7 +3,7 @@ import type { NextRequest, MiddlewareConfig } from "next/server";
 import { Response } from "@/lib/api/Response";
 
 export async function middleware(request: NextRequest) {
-    const token = request.cookies.get("token")
+    const token = request.cookies.get("user_token")?.value
 
     if(!token) {
         return Response("User not authenticated!", 401)
