@@ -20,6 +20,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useMutation } from "@tanstack/react-query";
 import { UseToast } from "@/hooks/useToast";
 import { useRouter } from "next/navigation";
+import RegisterApresentation from "@/components/RegisterApresentation";
 
 export default function Register() {
   const {
@@ -72,9 +73,11 @@ export default function Register() {
   }
 
   return (
-    <main className="h-screen w-screen flex items-start justify-between bg-black">
-      <div className="h-full w-1/2"></div>
-      <div className="rounded-l-3xl bg-white h-full w-1/2 flex items-center justify-center">
+    <main className="h-screen max-xl:h-auto w-full flex items-start justify-between bg-black max-xl:flex-col">
+      <div className="h-full w-1/2 max-xl:w-full">
+        <RegisterApresentation />
+      </div>
+      <div className="xl:rounded-l-3xl bg-white h-full w-1/2 max-xl:w-full max-xl:py-20 flex items-center justify-center max-xl:rounded-t-3xl">
         <Card className="border-none shadow-none">
           <CardContent>
             <CardHeader>
