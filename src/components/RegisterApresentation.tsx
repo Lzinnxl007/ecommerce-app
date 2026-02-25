@@ -13,7 +13,7 @@ export default function RegisterApresentation() {
         <h1 className="text-4xl text-center font-bold text-white">
           Take care of your health with Health Food.
         </h1>
-        <p className="text-white/70 mt-4">Find everything your health needs.</p>
+        <p className="text-white/70 mt-4 text-center">Find everything your health needs.</p>
         <div className="mt-20 w-full mx-auto max-xl:px-4">
           <Carousel>
             <CarouselContent>

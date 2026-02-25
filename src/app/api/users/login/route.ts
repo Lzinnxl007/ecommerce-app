@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 import { Response } from "@/lib/api/Response";
 import { UserService } from "@/service/user/user.service";
 import crypto from "node:crypto";
-import { User } from "@/types/user/user";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
 export async function POST(request: NextRequest) {
+
   const user = await request.json();
 
   const { email, password } = user;
@@ -16,9 +16,9 @@ export async function POST(request: NextRequest) {
     return Response("User data not provided!", 401);
   }
 
-  const findedUsers = (await UserService.GetUsers(email));
+  const findedUsers = await UserService.GetUsers(email);
 
-  const [ first ] = findedUsers
+  const [first] = findedUsers;
 
   if (!first) {
     return Response("User not finded!", 400);
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       name: first.name,
       email: first.email,
       status: first.status,
-      role: first.role
+      role: first.role,
     },
     process.env.JWT_SECRET!,
     { expiresIn: "7d" },
@@ -55,8 +55,8 @@ export async function POST(request: NextRequest) {
     value: token,
     httpOnly: true,
     secure: false,
-    sameSite: "lax"
+    sameSite: "lax",
   });
 
-  return Response("User login successfully", 200)
+  return Response("User login successfully", 200);
 }

@@ -13,7 +13,7 @@ export default function GlobalLoading() {
     }
 
     return (
-        <div className="fixed w-screen h-screen overflow-hidden bg-black/50 flex items-center justify center z-50 left-0 top-0">
+        <div className="fixed w-screen h-screen overflow-hidden bg-black/60 flex items-center justify-center z-50 left-0 top-0">
             <h1 className="text-white">Loading</h1>
         </div>
     )

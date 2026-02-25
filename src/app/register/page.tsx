@@ -8,7 +8,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Label } from "@/components/ui/label";
-import { Divide, Eye, EyeOff, LogIn } from "lucide-react";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRegisterSchema } from "@/schemas/user/user.register";
@@ -19,7 +19,6 @@ import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useMutation } from "@tanstack/react-query";
 import { UseToast } from "@/hooks/useToast";
-import { useRouter } from "next/navigation";
 import RegisterApresentation from "@/components/RegisterApresentation";
 
 export default function Register() {
@@ -53,8 +52,6 @@ export default function Register() {
     const data = await response.json();
     return data;
   }
-
-  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: registerUser,
